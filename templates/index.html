@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Галерея - Врубель</title>
+    <style>
+        .gallery a {
+          display: inline-block;
+          margin: 1rem;
+        }
+
+        .gallery img {
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="gallery-1" class="gallery">
+      <h2>Загрузка...</h2>
+    </div>
+    <script>
+        fetch('http://127.0.0.1:5000/json/images')
+          .then(response => response.json())
+          .then(json => {
+            let galleryHTML = '';
+            let gallery = document.querySelector('#gallery-1');
+            for (let image of json) {
+               galleryHTML += `<a href="${image.url}"><img src="${image.thumbnailUrl}" alt="image"></a>`
+            }
+            gallery.innerHTML = galleryHTML;
+          })
+    </script>
+</body>
+</html>
